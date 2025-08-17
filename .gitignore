@@ -1,0 +1,39 @@
+# =========================
+# Client (React + Vite)
+# =========================
+Client/node_modules
+Client/dist
+Client/.env
+
+# =========================
+# Server (Node/Express)
+# =========================
+Server/node_modules
+Server/.env
+
+# =========================
+# Logs
+# =========================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# =========================
+# Lock files (pick one manager: yarn OR npm)
+# If you use Yarn:
+package-lock.json
+# If you use npm:
+yarn.lock
+
+# =========================
+# OS/System files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Editor files
+# =========================
+.vscode/
+.idea/
