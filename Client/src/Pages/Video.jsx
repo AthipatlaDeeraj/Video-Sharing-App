@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Comments from '../components/Comments';
 import Card from '../components/Card';
 
+
+
 // Dummy video to avoid breaking Card component
 const dummyVideo = {
   imgUrl: "https://via.placeholder.com/300x200.png?text=Video",

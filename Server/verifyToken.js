@@ -1,4 +1,7 @@
 import jwt from "jsonwebtoken"
+
+//so frontend sends this cookies you now fetch them into -> token 
+//now you check this token and verify user here
 export const verifiedToken=(req,res,next)=>{
     const token=req.cookies.access_token;
     if(!token) return next({ status: 401, message: "you are not authenticated" });
@@ -10,4 +13,4 @@ export const verifiedToken=(req,res,next)=>{
         req.user=user;
         next();
     });
-}
+} 

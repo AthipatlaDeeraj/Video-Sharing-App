@@ -47,12 +47,20 @@ const SignIn = () => {
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const dispatch = useDispatch();
+
+
+    //see what happenning is first user clicks login button so we get data(pwd,name,googleauth etc) then we send this to backend using axios to communicate
+    //this http calls like post,put etc for sending data to backend then we process
+    //THERE IS FILE NAMES AXIOS.JS FOR HANDLING THAT AXIOS PART EVERYTIME INTEGRATING WITH BACKEND
+
     const handleLogin=async (e)=>{
         //without entering no refresh ,, like default avoiding
         e.preventDefault();
         dispatch(loginStart());
         try {
+
             const res=await axios.post("/api/auth/signin", { name, password });
+
             dispatch(loginSuccess(res.data));
         } catch (err) {
             dispatch(loginFailure());
@@ -60,22 +68,18 @@ const SignIn = () => {
     }
 
     const SignInWithGoogle = async () => {
-    dispatch(loginStart()); // no res yet
+        signInWithPopup(auth,provider).then((result)=>{
 
-    try {
-        const result = await signInWithPopup(auth, provider);
+            axios.post("api/auth/google",{
+                name:result.user.displayName,
+                email:result.user.email,
+                img:result.user.photoURL,
+            }).then((res)=>{ 
+                dispatch(loginSuccess(res.data))
+            })
 
-        const res = await axios.post("/auth/google", {
-        name: result.user.displayName,
-        email: result.user.email, // fixed typo here
-        img: result.user.photoURL,
-        });
-
-        dispatch(loginSuccess(res.data)); // now res exists
-    } catch (err) {
-        console.error(err);
-        dispatch(loginFailure()); // use failure action
-    }
+            
+        }).catch((err)=>{dispatch(loginFailure())})
     };
     
 

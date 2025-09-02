@@ -7,6 +7,11 @@ const router=express.Router();
 //CREATE AN ACCOUNT 
 router.post("/signup",signup);
 
+//so basically this receives the data from frontend using axios which is used to send or recieve data(in JSON format) using http calls
+//the thing is url must be matched so that data can be received here easily
+
+//syntax for axios is axios.post("url",{data});
+
 //SIGN IN
 router.post("/signin",signin);
 

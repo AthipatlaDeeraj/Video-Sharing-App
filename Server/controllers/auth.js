@@ -44,8 +44,30 @@ export const signin=async (req,res,next)=>{
 
 export const googleAuth=async(req,res,next)=>{
     try{
-        
-    }catch(err){
+        const user=await User.findOne({email:req.body.email});
+        if(user){
+            //assign this as a new user else also you need token so no need auth?
+            const token=jwt.sign({id:user._id},process.env.JWT);
+            const {...others}=user._doc;
 
+            res.cookie("access_key",token,{
+                httpOnly:true
+            }).status(200).json(user._doc);
+        }
+        else{
+            const newUser=new User({
+                ...req.body,
+                fromGoogle:true
+            })
+            const savedUser=newUser.save();
+            const token=jwt.sign({id:savedUser._id},process.env.JWT);
+            const {...others}=user._doc;
+
+            res.cookie("access_key",token,{
+                httpOnly:true
+            }).status(200).json(savedUser._doc);
+        }
+    }catch(err){
+        next(err);
     }
 }
