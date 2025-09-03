@@ -76,12 +76,10 @@ const SignIn = () => {
                 img:result.user.photoURL,
             }).then((res)=>{ 
                 dispatch(loginSuccess(res.data))
-            })
-
-            
+            })            
         }).catch((err)=>{dispatch(loginFailure())})
     };
-    
+    //so added google authentication here
 
   return (
     <Container>
